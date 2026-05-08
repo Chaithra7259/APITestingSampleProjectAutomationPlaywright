@@ -1,0 +1,107 @@
+# API Testing Sample Project with Playwright and TypeScript
+
+This project is set up for API automation testing using Playwright with TypeScript. It includes custom API fixtures, schema validation support, and example HAR-based flow coverage.
+
+## Prerequisites
+
+- Node.js (version 14 or higher)
+- npm
+
+## Installation
+
+Install dependencies and Playwright browsers:
+
+```bash
+npm install
+npx playwright install
+```
+
+### Environment Setup
+
+1. Copy the `.env.template `.env`:
+
+```bash
+cp .env.example .env
+```
+
+2. Update the `.env` file with your test credentials:
+
+```
+AUTH_EMAIL=your-email@example.com
+AUTH_PASSWORD=your-password
+API_BASE_URL=https://conduit-api.bondaracademy.com/api
+```
+
+The `.env` file is excluded from version control for security. Never commit credentials to the repository.
+
+
+## Running Tests
+
+- Run all tests: `npm test`
+- Run tests in headed mode: `npm run test:headed`
+- Run tests with UI mode: `npm run test:ui`
+- Run a single test file: `npx playwright test tests/har-flow.spec.ts`
+
+## Project Structure
+
+- `tests/` - Playwright test files (`*.spec.ts`)
+- `utils/fixtures.ts` - Custom API fixture and request helpers
+- `utils/custom-expect.ts` - Custom matcher for JSON schema validation
+- `schemas/` - Generated JSON schema files for API responses
+- `playwright.config.ts` - Playwright configuration
+- `tsconfig.json` - TypeScript configuration
+- `package.json` - Project dependencies and scripts
+
+## Custom API Helpers
+
+The `utils/fixtures.ts` file exports a reusable `api` fixture with helper methods:
+
+- `path('/articles')` — set the request path
+- `params({ limit: '10' })` — add query parameters
+- `body({ ... })` — attach a JSON payload
+- `auth('Token ...')` — set an authorization header
+- `getRequest(200)` / `postRequest(201)` / `putRequest(200)` / `deleteRequest(204)` — send requests and assert status codes
+
+Example usage:
+
+```typescript
+const response = await api
+  .path('/articles')
+  .params({ limit: '10', offset: '0' })
+  .getRequest(200);
+```
+
+## Schema Validation
+
+The custom matcher in `utils/custom-expect.ts` supports schema generation and validation.
+
+- To generate a schema from a response:
+
+```typescript
+await expect(response).shouldMatchSchema('articles', 'GET_articles', true);
+```
+
+- To validate against an existing schema:
+
+```typescript
+await expect(response).shouldMatchSchema('articles', 'GET_articles');
+```
+
+Generated schemas are stored in:
+
+- `schemas/articles/`
+- `schemas/tags/`
+- `schemas/users/`
+- `schemas/user/`
+
+## Example HAR Flow Test
+
+The HAR-based test file `tests/har-flow.spec.ts` recreates the recorded API flow sequence. It validates status codes, response structure, and the complete lifecycle of an article from creation to deletion.
+
+## Reports
+
+After running tests, view the HTML report:
+
+```bash
+npx playwright show-report
+```

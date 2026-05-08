@@ -1,0 +1,38 @@
+{
+  "name": "apitestingsampleprojectautomationplaywright",
+  "version": "1.0.0",
+  "description": "API Testing automation using Playwright with schema validation",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chaithra7259/APITestingSampleProjectAutomationPlaywright.git"
+  },
+  "keywords": [
+    "playwright",
+    "api-testing",
+    "automation",
+    "schema-validation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chaithra7259/APITestingSampleProjectAutomationPlaywright/issues"
+  },
+  "homepage": "https://github.com/Chaithra7259/APITestingSampleProjectAutomationPlaywright#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.2",
+    "ajv": "^8.20.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

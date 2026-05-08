@@ -1,0 +1,40 @@
+# Environment variables (contains sensitive credentials)
+.env
+.env.local
+.env.*.local
+
+#Intructions and prompts
+.github
+
+# Node modules
+node_modules/
+npm-debug.log
+package-lock.json
+yarn.lock
+
+# Playwright
+.playwright/
+playwright-report/
+test-results/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+#files related to generate test
+filtered-har.json
+har-converter.js
+networking.har
+test-login.js
