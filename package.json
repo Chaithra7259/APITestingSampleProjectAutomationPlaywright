@@ -7,7 +7,9 @@
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "docker:build": "docker build -t apitesting-playwright .",
+    "docker:test": "docker build -t apitesting-playwright . && docker run --rm --env-file .env apitesting-playwright"
   },
   "repository": {
     "type": "git",

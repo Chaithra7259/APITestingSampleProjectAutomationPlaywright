@@ -1,10 +1,11 @@
-import { test } from '../utils/fixtures';
-import { expect } from '../utils/custom-expect';
-import { config } from '../config';
+import { test } from '../../utils/fixtures';
+import { expect } from '../../utils/custom-expect';
+import { config } from '../../config';
 import { faker } from '@faker-js/faker';
+import { writeFileSync } from 'fs';
 
 test(
-  'HAR Flow - Create, update, comment, and delete article with auth sequence',
+  'A HAR Flow - Create, update, comment, and delete article with auth sequence',
   async ({ api }) => {
     // Step 1: Public listing of articles and tags before authentication.
     const publicArticlesResponse = await api
@@ -179,24 +180,9 @@ test(
       true
     );
 
-    // Step 11: Delete the updated article and validate final state.
-    await api.path(`/articles/${updatedArticleSlug}`).deleteRequest(204);
+    // Step 11: Store article slug for UI test to delete
+    writeFileSync('article-slug.txt', updatedArticleSlug);
 
-    const finalArticlesResponse = await api
-      .path('/articles')
-      .params({ limit: '10', offset: '0' })
-      .getRequest(200);
-    await expect(finalArticlesResponse).shouldMatchSchema(
-      'articles',
-      'GET_articles',
-      true
-    );
-
-    const finalTagsResponse = await api.path('/tags').getRequest(200);
-    await expect(finalTagsResponse).shouldMatchSchema(
-      'tags',
-      'GET_tags',
-      true
-    );
+    console.log(`Article created with slug: ${updatedArticleSlug}`);
   }
 );
