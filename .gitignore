@@ -4,7 +4,8 @@
 .env.*.local
 
 #Intructions and prompts
-.github
+instructions
+prompts
 
 # Node modules
 node_modules/
@@ -38,3 +39,4 @@ filtered-har.json
 har-converter.js
 networking.har
 test-login.js
+article-slug.txt
