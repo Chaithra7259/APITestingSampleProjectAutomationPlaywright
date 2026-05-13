@@ -18,6 +18,10 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      AUTH_EMAIL: ${{ secrets.AUTH_EMAIL }}
+      AUTH_PASSWORD: ${{ secrets.AUTH_PASSWORD }}
+      API_BASE_URL: ${{ secrets.API_BASE_URL }}
 
     steps:
     - name: Checkout code
